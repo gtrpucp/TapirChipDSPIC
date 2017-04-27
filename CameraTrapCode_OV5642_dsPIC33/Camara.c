@@ -6,7 +6,7 @@
 #include "stdlib.h"
 #include "user.h"
 
-#define DEBUG
+//#define DEBUG
 
 /**
  * @brief   Estatic variables defined here
@@ -130,11 +130,11 @@ static void Camara_SetProcessorClock(void) {
     // Don´t use this setting because is too fast for the DSPIC
     //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b000);//pclk = xclk / 1
     
-    //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b000);//pclk = xclk / 1
+//    HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b000);//pclk = xclk / 1
     HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b001);//pclk = xclk / 1.5
-    //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b010);//pclk = xclk / 2
+//    HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b010);//pclk = xclk / 2
     //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b011);//pclk = xclk / 2.5
-    //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b100);//pclk = xclk / 3 ****************
+//    HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b100);//pclk = xclk / 3 ****************
     //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b101);//pclk = xclk / 4 
     //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b110);//pclk = xclk / 6
     //HDByteWriteI2C(CAM_ADDRESS, 0x3012, 0b111);//pclk = xclk / 8
@@ -659,7 +659,7 @@ inline static uint8_t Camara_GuardarFoto(void) {
     asm("GOTO INICIO");
     
     asm("ESPERAR:");
-    DelayMs(5);
+    DelayMs(10);
 #ifdef DEBUG
     printf("File: %s LINE: %d Entrando al While\r\n", __FILE__, __LINE__);
 #endif
@@ -836,7 +836,7 @@ static void Camara_ResetApp(void) {
     T2CONbits.TON = 0;
 
     MEM_RESET = 0;
-    DelayMs(10);
+    DelayMs(10);     //**************************
     MEM_RESET = 1;
 
             

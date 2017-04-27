@@ -12,12 +12,12 @@ int PIR_Detect = 0; //Variable set to 1 when Interruption from PIR detected
 
 #define ENERGY_SAVING
 //#define CAMERA
-#define DEBUG
+//#define DEBUG
 
 void CPU_Init(void) {
     
-    RCONbits.VREGS = 1;
-    RCONbits.VREGSF = 1;
+//    RCONbits.VREGS = 1;
+//    RCONbits.VREGSF = 1;
     
     // Sequence to set/clear IOLOCK for controlling Peripheral Pin Select (PPS))
     OSCCONL = 0x46;
@@ -113,7 +113,7 @@ int main(void) {
 //              FLASH = 1;
                 if(Read_voltage() == 0){
                     error = Camara_TomarFoto();
-                    DelayMs(100);
+                    DelayMs(350);
                     error = Camara_TomarFoto();
                 }
     //            FLASH = 0;
