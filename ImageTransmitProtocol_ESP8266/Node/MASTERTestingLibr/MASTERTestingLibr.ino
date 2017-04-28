@@ -20,6 +20,7 @@
 #include <Libr_mtr.h>
 #define DBG_OUTPUT_PORT Serial
 
+unsigned long waiting = 0;
 
 //Create an instance of the object
 //MPL3115A2 myPressure;
@@ -65,6 +66,7 @@ File thisFile;
 char rpic[pbuff]= {0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA,0xAA};
 
 void sleep(){
+  Serial.println("Going to Sleep");
   DateTime now= RTC.now();
   long wakeup = now.get()+SLEEP_TIME;
   DateTime next(wakeup); 
@@ -81,6 +83,7 @@ void sleep(){
 }
 void rset(){  
   uint32_t sleepTimeMiliSeconds=10;
+  
   DBG_OUTPUT_PORT.println("RESET");
   //ESP.deepSleep(sleepTimeMiliSeconds * 1000);
   //
@@ -105,6 +108,7 @@ void rset(){
     RTC.enableInterrupts(EverySecond); 
     delay(500);
     ESP.deepSleep(0); 
+    waiting = millis();
 }
 
 void sync_rtc(){
@@ -115,12 +119,12 @@ void sync_rtc(){
    uint8_t counterp=0;
    while (!client_rtc.available()){
       delay(100); // waits till a message comes
-      DBG_OUTPUT_PORT.print("nm");
+      DBG_OUTPUT_PORT.print(".");
       if((counterp++)==100) rset();
     }
    t=0;
 
-   DBG_OUTPUT_PORT.print("\nReceiving RTC from client ... "); // Starts to receive the name of the picture
+   DBG_OUTPUT_PORT.print("\nReceiving RTC from client ... "); // Starts to receive the hour and date from the slave
    for(t=0;t<7;t++){
       if (client_rtc.available())  buff_si[t] = client_rtc.read();
       //DBG_OUTPUT_PORT.println(buff_si[t],DEC);
@@ -149,31 +153,74 @@ void sync_rtc(){
    Serial.print(':');
    Serial.print(now.second(), DEC);
    Serial.println();
-    
+
+   waiting = millis();
 }
 
 
 void rcv_p() {
+  uint8_t error = 0;
+  uint32_t timeinit=0xFFFFFFFF;
+  
    DBG_OUTPUT_PORT.print("RCV_P\n");
    WiFiClient client_init_tx = server_mtr.client();
    client_init_tx.setNoDelay(true);
    k=0;
-    while (!client_init_tx.available()){
-      delay(100); // waits till a message comes
-      DBG_OUTPUT_PORT.print("nm");
-    }
-    DBG_OUTPUT_PORT.print("\nRecibiendo: "); /* Starts to receive the name of the picture */
-    for(t=0;t<11;t++){
-      if (client_init_tx.available())  buff_si[t] = client_init_tx.read();
-      DBG_OUTPUT_PORT.print(buff_si[t]);   /*Prints the name of the picture*/
-    }
+   error = 1;
+   for(uint8_t w = 0; w < 3; w++){
+      timeinit=millis();
+      while (!client_init_tx.available()){
+        delay(100); // waits till a message comes
+        DBG_OUTPUT_PORT.print("nm");
+        if(millis()-timeinit>5000){
+          DBG_OUTPUT_PORT.print("\nTIME EXCEEDED      ");
+          DBG_OUTPUT_PORT.print((double)(millis()-timeinit)/1000); 
+          DBG_OUTPUT_PORT.println(" segundos");
+          DBG_OUTPUT_PORT.println("Lost connection with Slave, going to sleep");
+          //rset();
+          sleep();
+        }
+      }
+      DBG_OUTPUT_PORT.print("\nRecibiendo: "); /* Starts to receive the name of the picture */
+      for(t=0;t<11;t++){
+        if (client_init_tx.available())  buff_si[t] = client_init_tx.read();
+        DBG_OUTPUT_PORT.print(buff_si[t]);   /*Prints the name of the picture*/
+      }
 
-    if (buff_si[0]=='N') DBG_OUTPUT_PORT.print("\nName received is OK\n");
-    //**TODO** Implementar el resend
-    else client_init_tx.write((char*)resendname,2);
+      if ((buff_si[0]=='N')) {
+        if((buff_si[8]=='j') && (buff_si[9] == 'p') && (buff_si[10] == 'g')){
+          DBG_OUTPUT_PORT.print("\nName received is OK\n");
+          delay(TIME_TO_RESEND);
+          client_init_tx.write((char*)namereceive,2);
+          error = 0;
+          break;
+        }
+        else{
+          client_init_tx.write((char*)resendname,2);
+          DBG_OUTPUT_PORT.print("\nRequest to resend name\n");
+        }
+      }
+      if(buff_si[0] == 'E'){
+        DBG_OUTPUT_PORT.print("\nEndofPI received\n");
+        delay(TIME_TO_RESEND);
+        client_init_tx.write((char*)namereceive,2);
+        error = 0;
+        break;
+      }
+      else {
+        delay(TIME_TO_RESEND);
+        client_init_tx.write((char*)resendname,2);
+      }
+   }
 
-    DBG_OUTPUT_PORT.print("\nmessage received is: ");
-    DBG_OUTPUT_PORT.write((char*)buff_si, sizeof(buff_si)); // prints message received
+   if(error){
+      DBG_OUTPUT_PORT.print("Picture name incorrect, going to sleep");
+      sleep();
+   }
+   else{
+      DBG_OUTPUT_PORT.print("\nmessage received is: ");
+      DBG_OUTPUT_PORT.write((char*)buff_si, sizeof(buff_si)); // prints message received
+   }
   /*********************************************/
 
   unsigned long   sizep=0;
@@ -181,10 +228,10 @@ void rcv_p() {
   char            rpic[pbuff]= {0};
   char            rpic2[pbuff]= {0};
   uint32_t        times=0xFFFFFFFF;
-  uint32_t        timeinit=0xFFFFFFFF;
   char *          nof= "nname.jpg";
   nof=(char*)buff_si;
   if (!strcmp(nof,"ENDOFPI.jpg")){
+    delay(100);
     sleep();
   }
   else  if (!strcmp(nof,"ERRD_SD.jpg")){
@@ -236,7 +283,7 @@ void rcv_p() {
            thisFile.close();
 
            //Send a confirmation to slave before transmitting image
-           delay(1000);
+           delay(TIME_TO_RESEND);
            DBG_OUTPUT_PORT.println("Sending confirmation to slave");
            client_init_tx.write((char*)imagereceive,2);
            DBG_OUTPUT_PORT.println(String("\nEnd Time in millis:  ")+ millis());
@@ -270,12 +317,15 @@ void rcv_p() {
   
     // if the file opened okay, write to it:
     if (thisFile) {
+      now = RTC.now(); //get the current date-time
       DBG_OUTPUT_PORT.print("Writing to data.txt...\n");
       thisFile.print(String("Name of the picture: ") + nof + String("\n") );
       thisFile.print(String("Tiempo de transmision: ") + (double)((double)times/1000000) + String(" s\n"));
       thisFile.print(String("Tamano: ")+ sizep + String(" Bytes\n"));
       thisFile.print(String("Datarate: ")+ (double)((((double)sizep/(double)times)*8)*1000) + String(" Kbps\n"));
       thisFile.print(String("RSSI: ")+ (int)(rssi) + String(" dBm\n"));
+      thisFile.print(String("Date: ") + (int)(now.year()) + String("/") + (int)(now.month()) + String("/") + (int)(now.date()) + String(" ") +
+                                        (int)(now.hour()) + String(":") + (int)(now.minute()));
       thisFile.println(" ");
       thisFile.close(); // close the file:
       DBG_OUTPUT_PORT.println("done.");
@@ -284,7 +334,29 @@ void rcv_p() {
       DBG_OUTPUT_PORT.println("error creating data.txt");
       thisFile.close();   
     }   
-   DBG_OUTPUT_PORT.print("End of RCV_P\n");  
+
+  /***CREATE METADATA FILE******/
+  // open the file. note that only one file can be open at a time,
+    // so you have to close this one before opening another.
+    thisFile = SD.open("metadata.dat", FILE_WRITE);
+  
+    // if the file opened okay, write to it:
+    if (thisFile) {
+      now = RTC.now(); //get the current date-time
+      DBG_OUTPUT_PORT.print("Writing to metadata.dat ...\n");
+      thisFile.print(String("U ") + nof + String("\n") );
+      thisFile.close(); // close the file:
+      DBG_OUTPUT_PORT.println("done.");
+    } else {
+      // if the file didn't open, print an error:
+      DBG_OUTPUT_PORT.println("error creating metadata.dat");
+      thisFile.close();   
+    }   
+  /******END OF METADATA*******/
+
+    
+   DBG_OUTPUT_PORT.print("End of RCV_P\n");
+   waiting = millis();
   return;
 }
 
@@ -317,6 +389,7 @@ void init_tx(){
     DBG_OUTPUT_PORT.println("");
 
     //delay(100);
+    waiting = millis();
     return;
 }
 
@@ -329,16 +402,20 @@ void setup(void){
   server_mtr.begin();
   DBG_OUTPUT_PORT.println("HTTP server started");
   sdf.initSD();
-  func.initRTC();  
+  func.initRTC();
   for (int k=0; k<=pbuff; k++){
     rpic[k]= 0x00;
-  }    
-  
+  }
+  waiting = millis();
 }
 
-void loop(void){  
+void loop(void){
   server_mtr.handleClient();
-  delay(200);
+  //delay(200);
+  if( (millis()-waiting) > 40000){
+    sleep();
+  }
 }
 
 ////- See more at: http://www.esp8266.com/viewtopic.php?f=29&t=6731#sthash.YNlEDo0p.dpuf
+
