@@ -2,7 +2,7 @@ TAPIRCHIP
 ================================================================
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-[![TAPIRCHIP Release](D://Users//gtrpucp//Pictures//tapir.png)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+[![TAPIRCHIP Release](D://Users/gtrpucp/Pictures/tapir.png)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
 
 Description
 -----------
