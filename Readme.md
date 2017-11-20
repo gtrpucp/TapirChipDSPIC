@@ -2,7 +2,7 @@ PROJECT TAPIRCHIP
 ================================================================
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-[![TAPIRCHIP Release](docs/Logos/Tapir.bmp)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+[![TAPIRCHIP Release](docs/Logos/Tapir.bmp?align="center")](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
 
 PROJECT TAPIRCHIP 2017
 Description 
