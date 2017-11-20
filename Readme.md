@@ -50,7 +50,9 @@ The OV5642 CMOS sensor from Omnivision was selected. The previous work to contro
 The CMOS sensor outputs pictures with a quality up to 5 Megapixels, which means that the resolution can be set to 2, 3 and 5 Megapixels according to the needs of the biologists. 
 Selecting a higher resolution means that picture will occupy more memory which will reduce the amount of pictures that an SD card can store.
 The CMOS sensor is controlled with a DSPIC processor selected for its high processing speed (60 MIPS). Besides the CMOS sensor, this processor will control the additional sensors needed to build a trap camera.
-![image of CAMERA PCB](docs/PCBs/Camera/cmos_camera.png "CAMERA PCB")
+<p align="center">
+<img border ="0" src="docs/PCBs/Camera/cmos_camera.png" width="450">
+</p>
 
 2.4GHz Wi-Fi RADIO
 ================================================================
@@ -58,11 +60,23 @@ Transmitting the images to a central node will give biologists access to the pic
 This can also be used to monitor the trap cameras current state such as: Battery remaining energy, SD card reaming space, CMOS sensor failure, etc. In the previous project 900 MHz radios were employed, the obtained transmission speed was around 30 Kbps. 
 To increase the transmission speed the 2.4 GHz frequency was selected.
 To transmit the images the ESP8266 Wi-Fi chip is employed. This processor has gain a lot attention for many researches wanting to have a Wi-Fi connection, thus support to use its maximum capacity has been given. 
-In this project the “ESP8266 thing dev” [8] board from SPARKFUN was employed. 
+In this project the “ESP8266 thing dev” board from SPARKFUN was employed. 
 Since the cameras traps will work in the jungle were human activity is minimum, the radios will begin to transmit at a specific hour. To achieve this, the DS3231 will alert the nodes to start the transmission. 
-![image of RADIO1 PCB](docs/PCBs/Radio/radio1.png 'RADIO1 PCB')
-![image of RADIO2 PCB](docs/PCBs/Radio/radio2.png 'RADIO2 PCB')
-<img src="docs/PCBs/Radio/radio1.png" width="250">
+<p align="center">
+<img border = "0" src="docs/PCBs/Radio/radio1.png" width="375">
+<img border = "0" src="docs/PCBs/Radio/radio2.png" width="375">
+</p>
+
+AUDIO RECORDER
+===============================================================
+Visual information of the environment gives a lit of information to the biologist; this can be increased by adding sound. 
+For this reason the trap camera will not only take pictures of the animals, additionally a sound recorder is incorporated. To record sound, a microphone (1 channel - MONO) is used to transforms the physical waves into electrical signals. 
+This signal is digitalized by an analog to digital converter. Finally this digital data must be converted into a readable format for the computer.
+The WAV format is a good option to record sounds into a compatible file for computers. The recorded file has the advantage of not losing its quality during the processing. On the other hand, the file size occupies a significant amount of memory, 50 MB for a 5 minutes stereo recording [10]. For a 4 GB memory approximately 80 files can be saved, this means that if one file is recorded for day, the memory will be full in 80 days, without having pictures.
+To manage the file size a compression format is required to save memory. MP3 is a compression format that eliminates the sounds that human ears cannot hear. 
+The result is a file that occupies less memory than a WAV file, 3.4 MB for a 5 minutes stereo recording. 
+To generate MP3 files; the VS1063a MP3 codec is used. This device includes an analog to digital converter, which allows you to connect a microphone directly. In the next section the audio recorder board components are explained in detail.
+
 
 DESCRIPTION
 ================================================================
