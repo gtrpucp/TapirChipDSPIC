@@ -60,8 +60,9 @@ To increase the transmission speed the 2.4 GHz frequency was selected.
 To transmit the images the ESP8266 Wi-Fi chip is employed. This processor has gain a lot attention for many researches wanting to have a Wi-Fi connection, thus support to use its maximum capacity has been given. 
 In this project the “ESP8266 thing dev” [8] board from SPARKFUN was employed. 
 Since the cameras traps will work in the jungle were human activity is minimum, the radios will begin to transmit at a specific hour. To achieve this, the DS3231 will alert the nodes to start the transmission. 
-[image of RADIO1 PCB](docs/PCBs/Radio/radio1.png 'RADIO1 PCB')
-[image of RADIO2 PCB](docs/PCBs/Radio/radio2.png 'RADIO2 PCB')
+![image of RADIO1 PCB](docs/PCBs/Radio/radio1.png 'RADIO1 PCB')
+![image of RADIO2 PCB](docs/PCBs/Radio/radio2.png 'RADIO2 PCB')
+<img src="docs/PCBs/Radio/radio1.png" width="250">
 
 DESCRIPTION
 ================================================================
