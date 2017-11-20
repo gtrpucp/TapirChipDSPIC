@@ -22,6 +22,15 @@ If a transmission system is implemented with the trap camera, the biologists cou
 In commercial trap cameras the transmission is available through mobile services, but in the jungle the lack of a communication system makes it difficult to use this device. 
 Therefore our purpose is to develop a trap camera that meets the biologist’s requirements and that has a communication system to transfer data to a central base.
 
+The project **TAPIRNET** was an effort to implement a trap camera with a 900 MHz wireless radio. 
+The results showed that the transmission in the jungle was very difficult due to attenuation from the trees. The trap camera that we propose will have the following advantages:
+-	The trap camera will have autonomy to operate for 3 months. This time is fair enough to determine the animal presence.
+-	The Camera minimum resolution must be 2 Megapixels; this is desired by biologist to identify correctly animal species.
+-	The trap camera will have a wireless radio that can transmit the images to a center node. This will allow biologists to gain access to the pictures without walking and also monitor the camera status.
+-	The camera trap will have built-in sensors to capture information from the environment, such as: Temperature, Humidity and Sound.
+-	The technology will be developed in our country so technical support will be reachable.
+
+
 SYSTEM SPECS
 ===============================================================
 This camera trap have the following characteristics:
