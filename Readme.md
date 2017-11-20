@@ -1,8 +1,9 @@
-PROJECT TAPIRCHIP 
-================================================================
-
-[![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-[![TAPIRCHIP Release](docs/Logos/Tapir.bmp#center)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+<div style = "text-align:center" markdown = "1">
+	PROJECT TAPIRCHIP 
+	================================================================
+	[![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+	[![TAPIRCHIP Release](docs/Logos/Tapir.bmp#center)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+</div>
 
 PROJECT TAPIRCHIP 2017
 Description 
