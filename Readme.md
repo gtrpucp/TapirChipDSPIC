@@ -67,6 +67,7 @@ Since the cameras traps will work in the jungle were human activity is minimum, 
 <p align="center">
 <img border = "0" src="docs/PCBs/Radio/radio1.png" width="375">
 <img border = "0" src="docs/PCBs/Radio/radio2.png" width="375">
+<img border = "0" src="docs/Logos/ProtocolTx.png" width="500">
 </p>
 
 AUDIO RECORDER
