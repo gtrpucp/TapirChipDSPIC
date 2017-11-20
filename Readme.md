@@ -39,6 +39,10 @@ This camera trap have the following characteristics:
 -	Temperature, humidity and MP3 recorder, to have information about the environment.
 -	Li-on Battery for 3 months operation.
 
+CMOS CAMERA
+===============================================================
+The CMOS camera controller uses a 5 megapixel CMOS sensor from Omnivision, a [FIFO](/docs/AL440B_Dats_Sheets.pdf)
+
 DESCRIPTION
 ================================================================
 This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
