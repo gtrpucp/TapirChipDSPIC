@@ -2,11 +2,22 @@ PROJECT TAPIRCHIP
 ================================================================
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-<p align="center">
-	<a href="https://www.youtube.com/watch?v=K2XoNLCk-Mk">
-	<img alt="TAPIR RELEASE" src="docs/Logos/Tapir.bmp>
-	</a>
-</p>
+[![TAPIRCHIP Release](docs/Logos/Tapir.bmp)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+
+INTRODUCTION
+===============================================================
+The Amazon rainforest is considered to be one of the last natural reserves for animals, plants and trees; untouched by humans. It is also considered to be a frontline in the fight against global warning. 
+Illegal mining and uncontrolled deforestation have become a menace to this environment. For this reason, protection and conservation policies must be created by the government. 
+In this context biologists are doing their best effort to put into value the amazon rainforest; to show that preserving the amazon can be sustainable economic activity.
+The method employed by the biologists consists of doing an animal inventory; done mainly through walking and observation. 
+This method is not reliable because animals rarely show their self’s in the presence of humans, besides most of the animals have nightlife activity. 
+This makes it difficult to gather information of all the current species of the amazon.
+Trap cameras have become a popular method to study wildlife. These devices are attached to a tree and use a motion sensor that is
+triggered by the animal's movement to take a picture. These devices have the great advantage that they can work day and night for many
+days depending on the energy consumption. They can be installed in remote areas deep in the jungle were humans barely reach.
+The information gathered by the traps cameras can help biologist to discover new species, validate the presence of known
+species and also study animal bahaviour. 
+
 DESCRIPTION
 ================================================================
 This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
