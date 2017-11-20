@@ -2,8 +2,12 @@ PROJECT TAPIRCHIP
 ================================================================
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-[![TAPIRCHIP Release](align="center" docs/Logos/Tapir.bmp)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+[![TAPIRCHIP Release](docs/Logos/Tapir.bmp#center)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
 
+img[src*='#center'] { 
+    display: block;
+    margin: auto;
+}
 DESCRIPTION
 ================================================================
 This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
