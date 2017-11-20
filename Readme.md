@@ -52,6 +52,12 @@ Selecting a higher resolution means that picture will occupy more memory which w
 The CMOS sensor is controlled with a DSPIC processor selected for its high processing speed (60 MIPS). Besides the CMOS sensor, this processor will control the additional sensors needed to build a trap camera.
 ![image of CAMERA PCB](docs/PCBs/Camera/cmos_camera.png "CAMERA PCB")
 
+2.4GHz Wi-Fi RADIO
+================================================================
+Transmitting the images to a central node will give biologists access to the pictures without walking to the installation place. 
+This can also be used to monitor the trap cameras current state such as: Battery remaining energy, SD card reaming space, CMOS sensor failure, etc. In the previous project 900 MHz radios were employed, the obtained transmission speed was around 30 Kbps. 
+To increase the transmission speed the 2.4 GHz frequency was selected.
+
 DESCRIPTION
 ================================================================
 This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
