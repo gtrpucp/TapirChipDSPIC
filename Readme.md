@@ -1,12 +1,11 @@
-TAPIRCHIP 
+PROJECT TAPIRCHIP 
 ================================================================
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
-[![TAPIRCHIP Release](D://Users/gtrpucp/Pictures/tapir.png)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
+[![TAPIRCHIP Release](D:\Users\gtrpucp\Pictures\tapir.png)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
 
-Description
------------
-
+PROJECT TAPIRCHIP 2017
+Description 
 This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
 This project is to be implemented in the rainforests of PERU, where the Wireless Trap Cameras will have to transmit images from nodes to a sink node over distances of 800 meters
 The 3 modules can work independently or in combination accroding to the user needs.
