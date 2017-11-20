@@ -3,7 +3,9 @@ PROJECT TAPIRCHIP
 
 [![TAPIRCHIP Presentation Video](https://macondomomments.files.wordpress.com/2014/09/dsc00289.jpg)](https://www.youtube.com/watch?v=K2XoNLCk-Mk)
 <p align="center">
-	[![TAPIRCHIP Release](docs/Logos/Tapir.bmp)]
+	<a href="https://www.youtube.com/watch?v=K2XoNLCk-Mk">
+	<img alt="TAPIR RELEASE" src="docs/Logos/Tapir.bmp>
+	</a>
 </p>
 DESCRIPTION
 ================================================================
