@@ -41,7 +41,16 @@ This camera trap have the following characteristics:
 
 CMOS CAMERA
 ===============================================================
-The CMOS camera controller uses a 5 megapixel CMOS sensor from Omnivision, a [FIFO](/docs/AL440B_Dats_Sheets.pdf)
+The CMOS camera controller uses a 5 megapixel CMOS sensor from Omnivision, a [FIFO](/docs/AL440B_Dats_Sheets.pdf) memory and a 
+processor from Microchip. Since the captured picture data from de CMOS sensor is too big to be stored in the ram memory of the
+processor, a FIFO memory of 512 Kbytes is used to store temporally the picture data. 
+
+To recognize the characteristic pattern of animal species, biologists need to zoom into the image; and they have stated that a resolution of 2 megapixels is enough for this purpose. 
+The OV5642 CMOS sensor from Omnivision was selected. The previous work to control this sensor found on the web helped in the development of the controller. 
+The CMOS sensor outputs pictures with a quality up to 5 Megapixels, which means that the resolution can be set to 2, 3 and 5 Megapixels according to the needs of the biologists. 
+Selecting a higher resolution means that picture will occupy more memory which will reduce the amount of pictures that an SD card can store.
+The CMOS sensor is controlled with a DSPIC processor selected for its high processing speed (60 MIPS). Besides the CMOS sensor, this processor will control the additional sensors needed to build a trap camera.
+![image of CAMERA PCB](docs/PCBs/Camera/cmos_camera.png "CAMERA PCB")
 
 DESCRIPTION
 ================================================================
