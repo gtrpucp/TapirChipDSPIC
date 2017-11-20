@@ -75,8 +75,11 @@ This signal is digitalized by an analog to digital converter. Finally this digit
 The WAV format is a good option to record sounds into a compatible file for computers. The recorded file has the advantage of not losing its quality during the processing. On the other hand, the file size occupies a significant amount of memory, 50 MB for a 5 minutes stereo recording [10]. For a 4 GB memory approximately 80 files can be saved, this means that if one file is recorded for day, the memory will be full in 80 days, without having pictures.
 To manage the file size a compression format is required to save memory. MP3 is a compression format that eliminates the sounds that human ears cannot hear. 
 The result is a file that occupies less memory than a WAV file, 3.4 MB for a 5 minutes stereo recording. 
-To generate MP3 files; the VS1063a MP3 codec is used. This device includes an analog to digital converter, which allows you to connect a microphone directly. In the next section the audio recorder board components are explained in detail.
-
+To generate MP3 files; the VS1063a MP3 codec is used. This device includes an analog to digital converter, which allows you to connect a microphone directly.
+<p align="center">
+<img border = "0" src="docs/PCBs/MP3Recorder/MP3_1.png" width="375">
+<img border = "0" src="docs/PCBs/MP3Recorder/MP3_2.png" width="375">
+</p>
 
 DESCRIPTION
 ================================================================
