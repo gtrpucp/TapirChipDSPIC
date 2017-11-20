@@ -16,7 +16,19 @@ Trap cameras have become a popular method to study wildlife. These devices are a
 triggered by the animal's movement to take a picture. These devices have the great advantage that they can work day and night for many
 days depending on the energy consumption. They can be installed in remote areas deep in the jungle were humans barely reach.
 The information gathered by the traps cameras can help biologist to discover new species, validate the presence of known
-species and also study animal bahaviour. 
+species and also study animal bahaviour.
+
+If a transmission system is implemented with the trap camera, the biologists could reduce their walking to the jungle and also monitor the device status. 
+In commercial trap cameras the transmission is available through mobile services, but in the jungle the lack of a communication system makes it difficult to use this device. 
+Therefore our purpose is to develop a trap camera that meets the biologist’s requirements and that has a communication system to transfer data to a central base.
+
+SYSTEM SPECS
+===============================================================
+This camera trap have the following characteristics:
+-	CMOS sensor with a resolution of 5 Megapixeles.
+-	2.4 GHz Wi-Fi Radio to have a better throughput.
+-	Temperature, humidity and MP3 recorder, to have information about the environment.
+-	Li-on Battery for 3 months operation.
 
 DESCRIPTION
 ================================================================
