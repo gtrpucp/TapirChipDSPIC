@@ -7,7 +7,7 @@ PROJECT TAPIRCHIP
 </p>
 
 INTRODUCTION
-===============================================================
+------------
 The Amazon rainforest is considered to be one of the last natural reserves for animals, plants and trees; untouched by humans. It is also considered to be a frontline in the fight against global warning. 
 Illegal mining and uncontrolled deforestation have become a menace to this environment. For this reason, protection and conservation policies must be created by the government. 
 In this context biologists are doing their best effort to put into value the amazon rainforest; to show that preserving the amazon can be sustainable economic activity.
@@ -34,7 +34,7 @@ The results showed that the transmission in the jungle was very difficult due to
 
 
 SYSTEM SPECS
-===============================================================
+------------
 This camera trap have the following characteristics:
 -	CMOS sensor with a resolution of 5 Megapixeles.
 -	2.4 GHz Wi-Fi Radio to have a better throughput.
@@ -42,7 +42,7 @@ This camera trap have the following characteristics:
 -	Li-on Battery for 3 months operation.
 
 CMOS CAMERA
-===============================================================
+-----------
 The CMOS camera controller uses a 5 megapixel CMOS sensor from Omnivision, a [FIFO](/docs/AL440B_Dats_Sheets.pdf) memory and a 
 processor from Microchip. Since the captured picture data from de CMOS sensor is too big to be stored in the ram memory of the
 processor, a FIFO memory of 512 Kbytes is used to store temporally the picture data. 
@@ -64,7 +64,7 @@ Schematics of the system:
 -	[SD Card](/docs/Schematics/Camera/SD_Card_Schematic.png)
 
 2.4GHz Wi-Fi RADIO
-================================================================
+------------------
 Transmitting the images to a central node will give biologists access to the pictures without walking to the installation place. 
 This can also be used to monitor the trap cameras current state such as: Battery remaining energy, SD card reaming space, CMOS sensor failure, etc. In the previous project 900 MHz radios were employed, the obtained transmission speed was around 30 Kbps. 
 To increase the transmission speed the 2.4 GHz frequency was selected.
@@ -81,7 +81,7 @@ Schematic of the system:
 -	[ESP8266](/docs/Schematics/Radio/ESP8266_Schematic.png)
 
 AUDIO RECORDER
-===============================================================
+--------------
 Visual information of the environment gives a lot of information to the biologist; this can be increased by adding sound. 
 For this reason the trap camera will not only take pictures of the animals, additionally a sound recorder is incorporated. To record sound, a microphone (1 channel - MONO) is used to transforms the physical waves into electrical signals. 
 This signal is digitalized by an analog to digital converter. Finally this digital data must be converted into a readable format for the computer.
@@ -98,14 +98,7 @@ Schematic of the system:
 -	[Audio Recorder](/docs/Schematics/Mp3Recorder/Audio_schematic.png)
 
 DESCRIPTION
-================================================================
-This is an open source project to implement a wireless camera trap that consists of 3 modules: Camera, Audio and WiFi Radio.
-This project is to be implemented in the rainforests of PERU, where the Wireless Trap Cameras will have to transmit images from nodes to a sink node over distances of 800 meters
-The 3 modules can work independently or in combination accroding to the user needs.
-The Camera module consists of a 5MP CMOS sensor from Omnivision which is controlled by a DSPIC processor of the DSPIC33EP family.
-For this modules the chosen processor is the DSPIC33EP256GP504.
-The Audio module uses the VS1063a audio encoder from VLSI Solution to generated mp3 audio files from the environment, this device is also controlled by a DSPIC processor.
-The Radio module core is the ESP8266 SoC chip, this device has a WiFi radio with its RF components and a processor incorporated in one die. This component reduces greatly the pcb size and the support available online makes it easier to implement transmission protocols.
+-----------
 The project has the following  files:
 1. CameraTrapCode_OV5642_dsPIC33EP
 In this folder we can find all the code to control the OV5642 sensor, as well as its behaviour as a "camera trap".
