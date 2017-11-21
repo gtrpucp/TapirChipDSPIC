@@ -52,9 +52,16 @@ The OV5642 CMOS sensor from Omnivision was selected. The previous work to contro
 The CMOS sensor outputs pictures with a quality up to 5 Megapixels, which means that the resolution can be set to 2, 3 and 5 Megapixels according to the needs of the biologists. 
 Selecting a higher resolution means that picture will occupy more memory which will reduce the amount of pictures that an SD card can store.
 The CMOS sensor is controlled with a DSPIC processor selected for its high processing speed (60 MIPS). Besides the CMOS sensor, this processor will control the additional sensors needed to build a trap camera.
+
 <p align="center">
 <img border ="0" src="docs/PCBs/Camera/cmos_camera.png" width="450">
 </p>
+
+Schematics of the system:
+-	[CMOS Camera Controller](/docs/Schematics/Camera/Camera_Schematic.png)
+-	[FLASH_Schematic](/docs/Schematics/Camera/Flash_Schematic.png)
+-	[SENSOR Schematic](/docs/Schematics/Camera/Sensors_Schematic.png)
+-	[SD Card](/docs/Schematics/Camera/SD_Card_Schematic.png)
 
 2.4GHz Wi-Fi RADIO
 ================================================================
@@ -70,9 +77,12 @@ Since the cameras traps will work in the jungle were human activity is minimum, 
 <img border = "0" src="docs/Logos/ProtocolTx.png" width="500">
 </p>
 
+Schematic of the system:
+-	[ESP8266](/docs/Schematics/Radio/ESP8266_Schematic.png)
+
 AUDIO RECORDER
 ===============================================================
-Visual information of the environment gives a lit of information to the biologist; this can be increased by adding sound. 
+Visual information of the environment gives a lot of information to the biologist; this can be increased by adding sound. 
 For this reason the trap camera will not only take pictures of the animals, additionally a sound recorder is incorporated. To record sound, a microphone (1 channel - MONO) is used to transforms the physical waves into electrical signals. 
 This signal is digitalized by an analog to digital converter. Finally this digital data must be converted into a readable format for the computer.
 The WAV format is a good option to record sounds into a compatible file for computers. The recorded file has the advantage of not losing its quality during the processing. On the other hand, the file size occupies a significant amount of memory, 50 MB for a 5 minutes stereo recording [10]. For a 4 GB memory approximately 80 files can be saved, this means that if one file is recorded for day, the memory will be full in 80 days, without having pictures.
@@ -83,6 +93,9 @@ To generate MP3 files; the VS1063a MP3 codec is used. This device includes an an
 <img border = "0" src="docs/PCBs/MP3Recorder/MP3_1.png" width="375">
 <img border = "0" src="docs/PCBs/MP3Recorder/MP3_2.png" width="375">
 </p>
+
+Schematic of the system:
+-	[Audio Recorder](/docs/Schematics/Mp3Recorder/Audio_schematic.png)
 
 DESCRIPTION
 ================================================================
