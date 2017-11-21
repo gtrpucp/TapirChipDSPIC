@@ -181,11 +181,11 @@ int main(void) {
     
     while (1) {  
         
-        VSTestOffHardware();    // Apagamos el modulo
-        habilitaIntExterna();   // Habilitamos interrupcion externa
-        Sleep();                // Pasamos a modo Sleep
-        deshabilitaIntExterna();    //Despertamos
-        InicializaTIMER1();     // Reinicio de timer 1 
+        VSTestOffHardware();    // turn off the module
+        habilitaIntExterna();   // Enable Extern interrupt
+        Sleep();                // Enable Sleep mode
+        deshabilitaIntExterna();    //Wake up 
+        InicializaTIMER1();     // Restart timer 1
         if(VSTestInitHardware() || VSTestInitSoftware()){        
             printf("Falla en inicializacion de VS1063\r\n");
             buzzer_error();
@@ -198,13 +198,13 @@ int main(void) {
         buzzer_ok();
         ini_test_button();
         
-        Rec_CreateDir();        // Crea o abre la carpeta RECORD
-        Rec_SetNumFile();       // Establece el numero de grabacion
-        pStr = Rec_SetNameFile();   // Establece el nombre del archivo nuevo de grabacion          
-        TaskVSRecord(pStr, 48000, 160);    // Manda a hacer una grabacion
+        Rec_CreateDir();        // Create the RECORD file
+        Rec_SetNumFile();       // Establish de number of record
+        pStr = Rec_SetNameFile();   // Establish the new name file          
+        TaskVSRecord(pStr, 48000, 160);    // Start record
 
         delay_ms(200);
-        // El buzzer nos indica que se termino una grabacion
+        // The buzzer indicate the end of record
         buzzer_ok();
         delay_ms(20);
         buzzer_ok();
