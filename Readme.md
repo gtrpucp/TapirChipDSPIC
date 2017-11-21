@@ -146,6 +146,9 @@ In this folder we can find the transmission protocol to transmit the images take
 To allow the WiFi signal to be transmitted over the trees in the jungle, the antenas will be located on the top of the trees.
 For this purpose the nodes will work in 2 configurations. The first folder named "Nodes" will transmitt the pictures from the trap camera located in the ground to the top of the tree.
 The second folder named "Network" will transmit images from 4 nodes to a sink node, located on the top of the trees
+
+### 3. Mp3Recorder_VS1063
+In this folder we can find all the code to record audio in mp3 format using a VS1063 encoder/decoder with a dsPIC33EP processor.
 ```c+++
 int main(void) {
         
@@ -214,5 +217,3 @@ int main(void) {
     return 0;
 }
 ```
-### 3. Mp3Recorder_VS1063
-In this folder we can find all the code to record audio in mp3 format using a VS1063 encoder/decoder with a dsPIC33EP processor.
