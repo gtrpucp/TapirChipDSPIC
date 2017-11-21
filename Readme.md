@@ -100,12 +100,119 @@ Schematic of the system:
 DESCRIPTION
 -----------
 The project has the following  files:
-1. CameraTrapCode_OV5642_dsPIC33EP
-In this folder we can find all the code to control the OV5642 sensor, as well as its behaviour as a "camera trap".
-2. ImageTransmitProtocol_ESP8266
+### 1. CameraTrapCode_OV5642_dsPIC33EP
+In this folder we can find all the code to control the OV5642 sensor, as well as its behaviour as a "Camera Trap".
+```c++
+int main(void) {
+    uint8_t error;
+    CPU_Init();
+    Camara_Init();  
+    MAX17043_Init();    //Initializes the batter voltage tester
+   
+    
+    PIR_IntConfig();
+    CNPDBbits.CNPDB7 = 1;
+    while(PIR);
+    PIR_Detect=0;
+    DelayMs(100);
+    AhorroEnergia();
+
+    while(1)
+    {
+        Sleep();
+        if(TX_IN_PROGRESS && PIR_Detect){
+            NoAhorroEnergia();
+            if(!CamaraON()){
+                DelayMs(2700);
+//              FLASH = 1;
+                if(Read_voltage() == 0){
+                    error = Camara_TomarFoto();
+                    DelayMs(100);
+                    error = Camara_TomarFoto();
+                }
+    //            FLASH = 0;
+            }
+            TAKING_PHOTO = 0;
+            AhorroEnergia();
+            while(PIR);
+            PIR_Detect=0;
+        }
+    }
+}
+
+```
+### 2. ImageTransmitProtocol_ESP8266
 In this folder we can find the transmission protocol to transmit the images taken by the camera module.
 To allow the WiFi signal to be transmitted over the trees in the jungle, the antenas will be located on the top of the trees.
 For this purpose the nodes will work in 2 configurations. The first folder named "Nodes" will transmitt the pictures from the trap camera located in the ground to the top of the tree.
-The second folder named "Network" will transmit images from 4 nodes to a sink node, located on the top of the trees.
-3. Mp3Recorder_VS1063
+The second folder named "Network" will transmit images from 4 nodes to a sink node, located on the top of the trees
+```c+++
+int main(void) {
+        
+    CPU_Init();
+    InicializaTIMER1();     // Para conteo de tiempo cada ~1ms
+    InicializaSPI1();
+    InicializaUART1();
+    InicializaIO();
+
+    delay_ms(10);
+
+    INTCON2bits.GIE = 1; //enable all interrupts
+    
+
+    if(SDCard_init() == 1){
+        printf("Error microSD\r\n");
+        buzzer_error();
+        while(1);
+    }
+    else{
+        printf("SDCARD INICIALIZADA\r\n");
+    }
+    
+    if(VSTestInitHardware() || VSTestInitSoftware()){        
+        printf("Falla en inicializacion de VS1063\r\n");
+        buzzer_error();
+    }
+    else{        
+        printf("Inicializacion de VS1063 OK\r\n");
+        buzzer_ok();
+    }
+    
+    
+    while (1) {  
+        
+        VSTestOffHardware();    // Apagamos el modulo
+        habilitaIntExterna();   // Habilitamos interrupcion externa
+        Sleep();                // Pasamos a modo Sleep
+        deshabilitaIntExterna();    //Despertamos
+        InicializaTIMER1();     // Reinicio de timer 1 
+        if(VSTestInitHardware() || VSTestInitSoftware()){        
+            printf("Falla en inicializacion de VS1063\r\n");
+            buzzer_error();
+        }
+        
+//        /* Reproduccion de audio */
+//            buzzer_ok();
+//            TaskVSPlayer(file_audio2);
+        
+        buzzer_ok();
+        ini_test_button();
+        
+        Rec_CreateDir();        // Crea o abre la carpeta RECORD
+        Rec_SetNumFile();       // Establece el numero de grabacion
+        pStr = Rec_SetNameFile();   // Establece el nombre del archivo nuevo de grabacion          
+        TaskVSRecord(pStr, 48000, 160);    // Manda a hacer una grabacion
+
+        delay_ms(200);
+        // El buzzer nos indica que se termino una grabacion
+        buzzer_ok();
+        delay_ms(20);
+        buzzer_ok();
+        delay_ms(200);
+    }
+
+    return 0;
+}
+```
+### 3. Mp3Recorder_VS1063
 In this folder we can find all the code to record audio in mp3 format using a VS1063 encoder/decoder with a dsPIC33EP processor.
