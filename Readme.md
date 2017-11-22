@@ -271,7 +271,7 @@ void loop() {
 ```
 ### 3. Mp3Recorder_VS1063
 In this folder we can find all the code to record audio in mp3 format using a VS1063 encoder/decoder with a dsPIC33EP processor.
-```c+++
+```c
 int main(void) {
         
     CPU_Init();
@@ -302,6 +302,7 @@ int main(void) {
         printf("Inicializacion de VS1063 OK\r\n");
         buzzer_ok();
     }
+    
     
     while (1) {  
         
