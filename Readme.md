@@ -149,7 +149,125 @@ The second folder named "Network" will transmit images from 4 nodes to a sink no
 
 Network node:
 ```c++
+void setup() {
+    Serial.begin(115200);
+    DBG_OUTPUT_PORT.setDebugOutput(false);      
+    trx.connectWiFiSTA();
+    func.init_BattM();
+    func.init_RTC(); 
+    sdf.initSD();
+}
 
+void loop() {
+  delay(100);
+  func.BattLevel(3.7); /* sets ESP8266 to sleep if the Battery Level is less than specified */
+  /*****REGISTRATION******/
+  while(counter-->0){
+    if(trx.send_httpcon("reg")){  //WAIT ACK_OK
+        if(trx.send_str("NODO1",5)) {
+          DBG_OUTPUT_PORT.println("\nSTRING NODO 1 SENT OK\n");  
+          while(1){
+            if(trx.rec_buf(answer)){  /* In case something is received  */
+              func.set_RTC(answer);
+              break;
+            }
+          }
+          counter=0 ;  // NODE 1 REGISTERED  
+          DBG_OUTPUT_PORT.println("\nREGISTRATION OK\n");  
+        }
+        delay(10);
+    }
+  }
+  /***********************/  
+  /********EXPECTING COMMMUNICATION FROM SERVER**********/
+  if(trx.rec_buf(answer)){  /* In case something is received  */
+    DBG_OUTPUT_PORT.println("SERVER STARTED COMMUNICATION SUCCESFULLY");
+    if(!strcmp(answer,"SLEEP_")){    /*In case server sends node to SLEEP*/    
+      DBG_OUTPUT_PORT.println("Set to SLEEP");
+      func.Sleep(); 
+    } 
+    else if(!strcmp(answer,"WAKEUP")){
+        DBG_OUTPUT_PORT.println("Set to Wakeup");
+        digitalWrite(TX_PIN, LOW); Serial.println("SET PIN TX to transmit "); /* Tells other node to stop using SD memory */
+        if(!sdf.initSD()) {
+          if(!sdf.initSD()) {
+            if(!sdf.initSD()) {        
+              trx.send_i("ERRD_SD.jpg");
+              SPI.endTransaction();
+              SPI.end();
+              digitalWrite(4,HIGH);              
+            }
+          }        
+        }         
+        sdf.nextname("METADATA.DAT",nuevafoto);        
+        while(strcmp((char*)nuevafoto,(char*)fotoanterior)){ // while nuevafoto is different from fotoanterior            
+            Serial.print("\nFile to send: "); Serial.write(nuevafoto);                             
+            if (trx.send_i(nuevafoto)==2){                                      /* if time_exceeded  */ 
+                 Serial.println("\nTIMEOUT/LOST CONNECTION ... will restart \n"); 
+                 func.config_RTC(EverySecond);ESP.deepSleep(0);                
+            }
+            strcpy(fotoanterior,nuevafoto);
+            sdf.nextname("METADATA.DAT",nuevafoto);
+            delay(500);
+            digitalWrite(TX_PIN, HIGH);             /* to indicate the DSPIC that it can take photos*/          
+        }
+        Serial.println("\nNo new pictures to send");
+        trx.send_i("N1ENDPI.jpg");
+    }
+    else{
+        Serial.print("\nUnexpected characters - not WAKEUP nor SLEEP: ");
+        Serial.println(answer);
+    }
+   }
+  /****************************************************/
+}
+```
+
+Synk node:
+```c++
+void setup() {
+    Serial.begin(115200);
+    DBG_OUTPUT_PORT.setDebugOutput(true);  
+    sdf.initSD();
+    trx.connectWiFiAP();
+    func.init_RTC();
+    server_central.on("/rset", HTTP_GET, rset);
+    server_central.on("/reg", HTTP_GET, reg_node);
+    server_central.on("/rcv", HTTP_GET, rcv_p);
+    server_central.begin();
+    DBG_OUTPUT_PORT.println("HTTP server started");
+    init_time=millis();
+}
+
+void loop() {  
+  server_central.handleClient();  /* server_central_wifi.handleClient();*/
+  delay(300);
+  if(REG_TIME < millis() - init_time){  // Registering time finished
+    //Scan the nodes that were registered
+    if(!node_connected){                 // If there is no node connected      
+      if(NC[c]== 0xFF){                  // Node[c] registered?
+         snprintf(val,8,"client%i",(c));
+         connect_node(val,"WAKEUP");     // send to node c WAKEUP
+         node_connected=1;
+         NC[c]=0x00;                     // Unregister the node 
+      }
+      if (c==5){
+        delay(1000);
+        Serial.println(String("\n TRANSMISSION WITH NODES COMPLETED, SENDING ALL TO SLEEP")+TS);
+        for (int n=1;n<=4;n++){ 
+          if(TS[n]==0xFF){
+            snprintf(val,8,"client%i",(n));
+            Serial.println(String("Sending to sleep to node: ")+val);
+            connect_node(val,"SLEEP_"); 
+          }
+          delay(100);
+        }   
+        func.Sleep();//---------------------------------------------------------------        
+      }
+      else c++;
+    }
+  }                  
+}
 ```
 ### 3. Mp3Recorder_VS1063
 In this folder we can find all the code to record audio in mp3 format using a VS1063 encoder/decoder with a dsPIC33EP processor.
