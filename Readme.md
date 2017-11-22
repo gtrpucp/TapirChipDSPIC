@@ -275,7 +275,7 @@ In this folder we can find all the code to record audio in mp3 format using a VS
 int main(void) {
         
     CPU_Init();
-    InicializaTIMER1();     // Para conteo de tiempo cada ~1ms
+    InicializaTIMER1();     // Timer of ~1ms
     InicializaSPI1();
     InicializaUART1();
     InicializaIO();
