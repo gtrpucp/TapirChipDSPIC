@@ -275,7 +275,7 @@ In this folder we can find all the code to record audio in mp3 format using a VS
 int main(void) {
         
     CPU_Init();
-    InicializaTIMER1();     // Timer of ~1ms
+    InicializaTIMER1();     // TImer of ~1ms
     InicializaSPI1();
     InicializaUART1();
     InicializaIO();
@@ -306,11 +306,11 @@ int main(void) {
     
     while (1) {  
         
-        VSTestOffHardware();    // turn off the module
+        VSTestOffHardware();    // Turn off the module
         habilitaIntExterna();   // Enable Extern interrupt
         Sleep();                // Enable Sleep mode
-        deshabilitaIntExterna();    //Wake up 
-        InicializaTIMER1();     // Restart timer 1
+        deshabilitaIntExterna();    //Wake up
+        InicializaTIMER1();     // Restart timer 1 
         if(VSTestInitHardware() || VSTestInitSoftware()){        
             printf("Falla en inicializacion de VS1063\r\n");
             buzzer_error();
@@ -324,8 +324,8 @@ int main(void) {
         ini_test_button();
         
         Rec_CreateDir();        // Create the RECORD file
-        Rec_SetNumFile();       // Establish de number of record
-        pStr = Rec_SetNameFile();   // Establish the new name file          
+        Rec_SetNumFile();       // Set the number of record
+        pStr = Rec_SetNameFile();   // Set the new name file         
         TaskVSRecord(pStr, 48000, 160);    // Start record
 
         delay_ms(200);
