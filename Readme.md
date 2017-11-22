@@ -303,7 +303,6 @@ int main(void) {
         buzzer_ok();
     }
     
-    
     while (1) {  
         
         VSTestOffHardware();    // Turn off the module
