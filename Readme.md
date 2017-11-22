@@ -97,6 +97,8 @@ To generate MP3 files; the VS1063a MP3 codec is used. This device includes an an
 Schematic of the system:
 -	[Audio Recorder](/docs/Schematics/Mp3Recorder/Audio_schematic.png)
 
+*************************************************************************
+
 DESCRIPTION
 -----------
 The project has the following  files:
